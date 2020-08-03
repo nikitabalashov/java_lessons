@@ -6,19 +6,20 @@ public class MyFirstJava {
 	//	hello("world");
 	//	hello("Nikita");
 
-	//	Sqare s = new Sqare(5);
+		Sqare s = new Sqare(5);
 	//	Rectangle z = new Rectangle(4, 88);
 
-		Point p1 = new Point(3, 5);
-		Point p2 = new Point(4, 13);
+		Point p1 = new Point(1, 2);
+		Point p2 = new Point(4, 6);
 
 		p1.xx = 1;
 		p1.yy = 2;
-		p2.xx = 3;
-		p2.yy = 4;
-
+		p2.xx = 4;
+		p2.yy = 6;
+  //   вычесление расстояния через функцию
 		System.out.println("расстояние от точки X с координатами (" + p1.xx + " , " + p1.yy + ") до точки Y с координатами (" + p2.xx + " , " + p2.yy + ") равна " + distance(p1, p2));
-//		  System.out.println( p.distance() );
+  //   вычесление через метод в классе
+		System.out.println( p2.distance(p1) );
 
 	//	System.out.println("Площадь квадрата со стороной " + s.l + " равна " + s.area());
 	//	System.out.println("Площадь прямоугольника со сторонами " + z.x + " и " + z.y + " равна " + z.area());
