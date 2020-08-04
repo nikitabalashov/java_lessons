@@ -6,7 +6,7 @@ import org.testng.annotations.Test;
 @Test
 public class SqareTests {
   public void testArea() {
-    Sqare s = new Sqare(5);
-    Assert.assertEquals( s.area() , 25.0);
+    Sqare s = new Sqare(6);
+    Assert.assertEquals( s.area() , 36.0);
   }
 }

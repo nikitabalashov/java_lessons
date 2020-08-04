@@ -9,15 +9,15 @@ public class MyFirstJava {
 		Sqare s = new Sqare(5);
 	//	Rectangle z = new Rectangle(4, 88);
 
-		Point p1 = new Point(1, 2);
-		Point p2 = new Point(4, 6);
+		Point p1 = new Point(1.0, 2.0);
+		Point p2 = new Point(4.0, 6.0);
 
-		p1.xx = 1;
-		p1.yy = 2;
-		p2.xx = 4;
-		p2.yy = 6;
+		p1.xx = 1.0;
+		p1.yy = 2.0;
+		p2.xx = 4.0;
+		p2.yy = 6.0;
   //   вычесление расстояния через функцию
-		System.out.println("расстояние от точки X с координатами (" + p1.xx + " , " + p1.yy + ") до точки Y с координатами (" + p2.xx + " , " + p2.yy + ") равна " + distance(p1, p2));
+	//	System.out.println("расстояние от точки X с координатами (" + p1.xx + " , " + p1.yy + ") до точки Y с координатами (" + p2.xx + " , " + p2.yy + ") равна " + distance(p1, p2));
   //   вычесление через метод в классе
 		System.out.println( p2.distance(p1) );
 
