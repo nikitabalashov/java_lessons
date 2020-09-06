@@ -11,6 +11,7 @@ public void  testContactModification () {
   app.getContactHelper().chooseContact();
   app.getContactHelper().initContactModification();
   app.getContactHelper().fillFieldsContact(new ContactData("Sasha", "Firsenkova", "Bulba", "SPBU", "Bransk", "666-6666", "sasha.firsenkova@ya.ru"));
+  app.getContactHelper().fillFieldsContact(new ContactData("Sasha", "Firsenkova", "Prigazhunya", "SPBU", "Bransk", "666-6666", "sasha.firsenkova@ya.ru"));
   app.getContactHelper().submitContactModification();
   app.getContactHelper().gotoHomePage();
 

@@ -12,7 +12,7 @@ public class ContactHelper extends HelperBase {
 
   public boolean acceptNextAlert = true;
 
-  public ContactHelper(FirefoxDriver wd) {
+  public ContactHelper(WebDriver wd) {
     super(wd);
   }
 
