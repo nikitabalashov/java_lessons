@@ -68,7 +68,14 @@ public class ContactHelper extends HelperBase {
     }
   }
 
-  
+  public void initContactModification() {
+    click(By.xpath("//img[@alt='Edit']"));
+    //click(By.xpath("Edit"));
+  }
+
+  public void submitContactModification() {
+    click(By.name("update"));
+  }
   public void gotoHomePage() {
     click(By.linkText("home"));
   }
