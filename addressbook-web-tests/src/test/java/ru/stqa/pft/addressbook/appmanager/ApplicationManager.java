@@ -12,7 +12,7 @@ import org.openqa.selenium.remote.BrowserType;
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
-  WebDriver wd;
+  private WebDriver wd;
 
   private NavigationHelper navigationHelper;
   private GroupHelper groupHelper;
@@ -34,7 +34,7 @@ public class ApplicationManager {
     }
    // wd = new WebDriver();
     wd.manage().timeouts().implicitlyWait(0, TimeUnit.SECONDS);
-    wd.get("http://localhost/addressbook/group.php");
+    wd.get("http://localhost/addressbook/");
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
@@ -45,10 +45,18 @@ public class ApplicationManager {
 
 
   public void stop() {
+    wd.findElement(By.linkText("Logout")).click();
     wd.quit();
   }
 
-
+  public boolean isElementPresent(By by) {
+    try {
+      wd.findElement(by);
+      return true;
+    } catch (NoSuchElementException e) {
+      return false;
+    }
+  }
 
   public GroupHelper getGroupHelper() {
     return groupHelper;
@@ -58,7 +66,7 @@ public class ApplicationManager {
     return navigationHelper;
   }
 
-  public SessionHelper getSessionHelper() {return sessionHelper; }
+  //public SessionHelper getSessionHelper() {return sessionHelper; }
 
   public ContactHelper getContactHelper() {return contactHelper;}
 
