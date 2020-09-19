@@ -1,3 +1,4 @@
+
 package ru.stqa.pft.addressbook.appmanager;
 
 import org.openqa.selenium.Alert;
@@ -8,12 +9,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
-import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Contacts;
 import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
-import ru.stqa.pft.addressbook.model.ContactData;
 import static org.testng.Assert.assertTrue;
+
+
 
 public class ContactHelper extends HelperBase {
 
@@ -27,9 +29,15 @@ public class ContactHelper extends HelperBase {
     click(By.xpath("(//input[@name='submit'])[2]"));
   }
 
-//  public void click(By locator) {
-//    wd.findElement(locator).click();
-//  }
+  public void selectContactById(int id) {
+
+    wd.findElement(By.cssSelector("input[value='" + id + "']")).click();
+  }
+  public void selectContactByIdForMod(int id) {
+
+    wd.findElement(By.xpath( ".//input[@value='" + id + "']/..//following-sibling::td[7]/a")).click();
+  }
+
 
   public void fillFieldsContact(ContactData contactData , boolean creation) {
     type(By.name("firstname"), contactData.getFirstname());
@@ -112,12 +120,48 @@ public class ContactHelper extends HelperBase {
   public void gotoHomePage() {
     click(By.linkText("home"));
   }
-  public void createContact(ContactData contact, boolean b) {
+  public void create(ContactData contact, boolean b) {
     gotoAddNewContact();
     fillFieldsContact(contact, b);
     submitContact();
     gotoHomePage();
   }
+
+
+
+
+  NavigationHelper nav = new NavigationHelper(wd);
+
+  public void removeContact() {
+    click(By.xpath("//form[2]//input[2]"));
+  }
+
+  public void modify(ContactData contactMod) {
+    selectContactByIdForMod(contactMod.getId());
+    fillFieldsContact(contactMod, false);
+    submitContactModification();
+    gotoHomePage();
+  }
+
+  public void deleteContactFromMainPage(ContactData deletedContact) {
+    selectContactById(deletedContact.getId());
+    removeContactForMainPage();
+    nav.acceptAlert();
+    gotoHomePage();
+  }
+
+  public void deleteContactFromModPage(ContactData deletedContact) {
+    selectContactByIdForMod(deletedContact.getId());
+    removeContact();
+    gotoHomePage();
+  }
+
+
+
+
+
+
+
 
   public boolean isThereAContact() {
     return isElementPresent(By.name("selected[]"));
@@ -138,13 +182,25 @@ public class ContactHelper extends HelperBase {
         String lname = lastNames.get(i).getText();
         String fname = firstNames.get(i).getText();
         int id = Integer.parseInt(ids.get(i).getAttribute("value"));
-        ContactData contact = new ContactData(id,lname,fname, null,null,null,null,null,null);
+        ContactData contact = new ContactData().withId(id).withFirstname(fname).withLastname(lname);
         contacts.add(contact);
       }
       return contacts;
     }
 
-
+  public Contacts all() {
+    Contacts contacts = new Contacts();
+    List<WebElement> lastNames = wd.findElements(By.xpath(".//tr[@name=\"entry\"]/td[3]"));
+    List<WebElement> firstNames = wd.findElements(By.xpath(".//tr[@name=\"entry\"]/td[2]"));
+    List<WebElement> ids = wd.findElements(By.xpath(".//tr[@name=\"entry\"]/td[1]/input"));
+    for(int i=0; i<lastNames.size(); i++){
+      String lname = lastNames.get(i).getText();
+      String fname = firstNames.get(i).getText();
+      int id = Integer.parseInt(ids.get(i).getAttribute("value"));
+      contacts.add(new ContactData().withId(id).withLastname(fname).withFirstname(lname));
+    }
+    return contacts;
+  }
  /* public List<ContactData> getContactList() {
 
     List<ContactData> contacts = new ArrayList<ContactData>();
