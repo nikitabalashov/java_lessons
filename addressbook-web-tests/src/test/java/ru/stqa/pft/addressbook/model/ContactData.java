@@ -114,42 +114,42 @@ public class ContactData {
 
 
 
-  public ContactData withFirstname(String Firstname) {
+  public ContactData withFirstname(String firstname) {
     this.firstname = firstname;
     return this;
   }
 
-  public ContactData withLastname(String Lastname) {
+  public ContactData withLastname(String lastname) {
     this.lastname = lastname;
     return this;
   }
 
-  public ContactData withNickname(String Nickname) {
+  public ContactData withNickname(String nickname) {
     this.nickname = nickname;
     return this;
   }
 
-  public ContactData withCompany(String Company) {
+  public ContactData withCompany(String company) {
     this.company = company;
     return this;
   }
 
-  public ContactData withAddress(String Address) {
+  public ContactData withAddress(String address) {
     this.address = address;
     return this;
   }
 
-  public ContactData withMobile(String Mobile) {
+  public ContactData withMobile(String mobile) {
     this.mobile = mobile;
     return this;
   }
 
-  public ContactData withEmail(String Email) {
+  public ContactData withEmail(String email) {
     this.email = email;
     return this;
   }
 
-  public ContactData withGroup(String Group) {
+  public ContactData withGroup(String group) {
     this.group = group;
     return this;
   }
