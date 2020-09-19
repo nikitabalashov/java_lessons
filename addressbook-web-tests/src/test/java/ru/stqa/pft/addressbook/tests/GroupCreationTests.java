@@ -12,12 +12,15 @@ import java.util.List;
 import java.io.*;
 import com.thoughtworks.xstream.XStream;
 import java.util.stream.Collectors;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 
 public class GroupCreationTests extends TestBase {
 
 
   @DataProvider
-  public Iterator<Object[]> validGroup() throws IOException {
+  public Iterator<Object[]> validGroupFromXml() throws IOException {
     //List<Object[]> list = new ArrayList<Object[]>();
     //BufferedReader reader = new BufferedReader(new FileReader(new File("/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/groups.csv")));
 
@@ -39,8 +42,23 @@ public class GroupCreationTests extends TestBase {
   }
 
 
+  @DataProvider
+  public Iterator<Object[]> validGroupFromJson() throws IOException {
+    BufferedReader reader = new BufferedReader(new FileReader(new File("/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/groups.json")));
+    String json = "";
+    String line = reader.readLine();
+    while (line != null) {
+      json += line;
+      line = reader.readLine();
+    }
+    Gson gson = new Gson();
+    List<GroupData> groups = gson.fromJson(json,new TypeToken<List<GroupData>>(){}.getType());
+    return groups.stream().map((g)-> new Object[]{g}).collect(Collectors.toList()).iterator();
+  }
 
-  @Test(dataProvider = "validGroup")
+
+
+  @Test(dataProvider = "validGroupFromJson")
   public void testGroupCreation(GroupData group) throws Exception {
     app.goTo().GroupPage();
     Groups before = app.group().all();
