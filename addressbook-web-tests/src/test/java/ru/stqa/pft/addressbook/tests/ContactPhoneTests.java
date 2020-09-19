@@ -42,7 +42,7 @@ public class ContactPhoneTests extends TestBase {
 
 
 
-  
+
   public static String cleaned(String phones){
       return phones.replaceAll("\\s","").replaceAll("[-()]","");
     }
