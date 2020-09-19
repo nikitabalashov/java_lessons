@@ -1,33 +1,49 @@
 package ru.stqa.pft.addressbook.tests;
 
+import org.hamcrest.CoreMatchers;
+import org.hamcrest.MatcherAssert;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import ru.stqa.pft.addressbook.model.GroupData;
 import org.testng.Assert;
+import ru.stqa.pft.addressbook.model.Groups;
+
 import java.util.List;
-import java.util.HashSet;
 import java.util.Comparator;
+import java.util.Set;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.testng.Assert.assertEquals;
 
 public class GroupModificationTests extends TestBase {
+
+  @BeforeMethod
+  public void ensurePreconditions() {
+    app.goTo().GroupPage();
+    if (app.group().all().size() == 0){
+      app.group().create(new GroupData().withName("testio1"));
+    }
+  }
+
+
+
   @Test
   public void testGroupModification () {
-    app.getNavigationHelper().gotoGroupPage();
-    if (! app.getGroupHelper().isThereAGroup()){
-      app.getGroupHelper().createGroup(new GroupData("testio1", null, null));
-    }
-    List<GroupData> before = app.getGroupHelper().getGroupList();
-    app.getGroupHelper().selectGroup(before.size()-1);
-    app.getGroupHelper().initGroupModification();
-    GroupData groupData = new GroupData(before.get(before.size()-1).getId(),"Test1", "Test2","Test3");
-    app.getGroupHelper().fillGroupForm(groupData);
-    app.getGroupHelper().submitGroupModification();
-    app.getGroupHelper().returnToGroupPage();
-    List<GroupData> after = app.getGroupHelper().getGroupList();
-    Assert.assertEquals(after.size(),before.size());
-    before.remove(before.size()-1);
-    before.add(groupData);
-    Comparator<? super GroupData> byId = (g1,g2)->Integer.compare(g1.getId(),g2.getId());
-    before.sort(byId);
-    after.sort(byId);
-    Assert.assertEquals(before, after);
+
+    Groups before = app.group().all();
+   // int index = before.size()-1;
+    GroupData modifyGroup = before.iterator().next();
+    GroupData groupData = new GroupData()
+            .withId(modifyGroup.getId()).withName("Test1").withHeader("Test2").withFooter("Test3");
+    app.group().modify(groupData);
+    Groups after = app.group().all();
+    assertEquals(after.size(),before.size());
+    //before.remove(modifyGroup);
+    //before.add(groupData);
+    assertThat(after, equalTo(before.without(modifyGroup).withAdded(groupData)));
+    //Assert.assertEquals(before, after);
   }
+
+
 }
