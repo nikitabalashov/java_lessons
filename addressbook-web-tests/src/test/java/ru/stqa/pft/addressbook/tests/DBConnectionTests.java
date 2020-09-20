@@ -7,7 +7,7 @@ package ru.stqa.pft.addressbook.tests;
         import java.sql.*;
 
 public class DBConnectionTests {
-  @Test
+  @Test (enabled = false)
   public void testDBConnection() {
     Connection conn = null;
     try {
