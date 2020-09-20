@@ -29,10 +29,10 @@ public class ApplicationManager {
     properties = new Properties();
   }
 
-  public void init() throws IOException
+  public void init() //throws IOException
   {
-    String target = System.getProperty("target", "local");
-    properties.load(new FileReader(new File(String.format("/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/%s.properties", target))));
+  //  String target = System.getProperty("target", "local");
+  //  properties.load(new FileReader(new File(String.format("/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/%s.properties", target))));
     if(browser.equals(BrowserType.FIREFOX))  {
       wd = new FirefoxDriver();
     } else if (browser.equals(BrowserType.CHROME))   {
@@ -41,13 +41,13 @@ public class ApplicationManager {
       wd = new InternetExplorerDriver();
     }
     wd.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
- //   wd.get("http://localhost/addressbook/");
-    wd.get(properties.getProperty("web.baseUrl"));
+    wd.get("http://localhost/addressbook/");
+  //  wd.get(properties.getProperty("web.baseUrl"));
     groupHelper = new GroupHelper(wd);
     navigationHelper = new NavigationHelper(wd);
     sessionHelper = new SessionHelper(wd);
- //   sessionHelper.login("admin", "secret");
-    sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
+    sessionHelper.login("admin", "secret");
+ //   sessionHelper.login(properties.getProperty("web.adminLogin"), properties.getProperty("web.adminPassword"));
     contactHelper = new ContactHelper(wd);
   }
 

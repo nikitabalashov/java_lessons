@@ -6,10 +6,17 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
+import java.lang.reflect.Method;
+import java.util.Arrays;
+
 
 
 public class TestBase {
-
+  Logger logger = LoggerFactory.getLogger(GroupCreationTests.class);
   protected static final ApplicationManager app = new ApplicationManager(System.getProperty("browser", BrowserType.CHROME));
 
   @BeforeSuite(alwaysRun = true)
@@ -21,5 +28,16 @@ public class TestBase {
   public void tearDown() throws Exception {
     app.stop();
   }
+
+  @BeforeMethod
+  public void logTestStart(Method m, Object[] objects) {
+    logger.info("Start '" +m.getName() + "' test, with parameters " + Arrays.asList(objects));
+  }
+
+  @AfterMethod(alwaysRun = true)
+  public void logTestStop(Method m, Object[] objects) {
+    logger.info("Stop '" +m.getName() + "' test ");
+  }
+
 
 }
