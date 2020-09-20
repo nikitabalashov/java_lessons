@@ -12,6 +12,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
 
+
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
@@ -23,6 +24,7 @@ public class ApplicationManager {
   private SessionHelper sessionHelper;
   private ContactHelper contactHelper;
   private String browser;
+  private DbHelper dpHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
@@ -78,5 +80,9 @@ public class ApplicationManager {
   //public SessionHelper getSessionHelper() {return sessionHelper; }
 
   public ContactHelper contact() {return contactHelper;}
+
+  public DbHelper db() {
+    return dpHelper;
+  }
 
 }
