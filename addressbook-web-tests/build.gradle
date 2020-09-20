@@ -15,5 +15,31 @@ dependencies {
     implementation 'com.google.code.gson:gson:2.8.6'
 }
 
+//test {
+//    useTestNG()
+//}
 
-//java:4.0.0-alpha-6
+task testGroups(type: Test) {
+    useTestNG{
+        suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/testng-groups.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperties 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperties 'target', "${target}"
+    }
+}
+task testUsers(type: Test) {
+    useTestNG {
+        suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/testng-contacts.xml'
+    }
+    if (project.hasProperty('browser')) {
+        systemProperties 'browser', "${browser}"
+    }
+    if (project.hasProperty('target')) {
+        systemProperties 'target', "${target}"
+    }
+}
+
+
