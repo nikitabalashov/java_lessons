@@ -14,6 +14,8 @@ import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.List;
 import static org.testng.Assert.assertTrue;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 
 
@@ -40,6 +42,7 @@ public class ContactHelper extends HelperBase {
 
 
   public void fillFieldsContact(ContactData contactData , boolean creation) {
+    String group_name = contactData.getGroups().iterator().next().getName();
     type(By.name("firstname"), contactData.getFirstname());
     type(By.name("lastname"), contactData.getLastname());
     type(By.name("nickname"), contactData.getNickname());
@@ -51,17 +54,35 @@ public class ContactHelper extends HelperBase {
     type(By.name("work"), contactData.getWork());
 
     if (creation) {
-      try {
-
-      new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-      } catch (NoSuchElementException e) {
-        System.out.println("Group named " + "\'" + contactData.getGroup() + "\' was not found, the contact was created without a group");
-      }
-
-    } else{
-      Assert.assertFalse(isElementPresent(By.name("new_group")));
+      //     try {
+      //     new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+//      } catch (NoSuchElementException e) {
+//        System.out.println("Group named " + "\'" + contactData.getGroup() + "\' was not found, the contact was created without a group");
+      //     }
+      //   } else{
+      if (contactData.getGroups().size() > 0) {
+        contactData.getGroups();
+        Assert.assertTrue(contactData.getGroups().size() == 1);
+        new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(group_name);
+        } else {
+        Assert.assertFalse(isElementPresent(By.name("new_group")));
+        }
     }
   }
+  public void addContactToGroup(int groupId) {
+    new Select(wd.findElement(By.name("to_group"))).selectByValue(Integer.toString(groupId));
+    wd.findElement(By.xpath("//input[@name='add']")).click();
+  }
+
+  public void selectGroupForImaging(int groupId){
+    new Select(wd.findElement(By.name("group"))).selectByValue(Integer.toString(groupId));
+  }
+
+  public void removeUserFromSelectedGroup(int userId) {
+    selectContactById(userId);
+    wd.findElement(By.xpath("//input[@name='remove']")).click();
+  }
+
 
  /*public boolean isElementPresent(By locator) {
     try {

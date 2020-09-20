@@ -14,6 +14,10 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.List;
+import ru.stqa.pft.addressbook.appmanager.ApplicationManager;
+import ru.stqa.pft.addressbook.appmanager.DbHelper;
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
 
 public class ContactDataGenerator {
 
@@ -74,10 +78,11 @@ public class ContactDataGenerator {
               .withMobile(String.format("33%s", i))
               .withWork(String.format("33%s", i))
               .withEmail(String.format("firstTest%s@test.ru", i))
-             //
              // .withCompany(String.format("company %s", i))
             //  .withEmail2(String.format("secondTest%s@test.ru", i))
-              .withGroup("test1"));
+            //  .inGroup(new GroupData().withName("test1"))
+           //   .withGroup("test1"));
+             .inGroup(new GroupData().withName("Test1").withHeader("Header1").withFooter("footer1")));
     }
     return contacts;
   }

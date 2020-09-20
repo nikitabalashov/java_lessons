@@ -18,6 +18,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import ru.stqa.pft.addressbook.model.GroupData;
+import ru.stqa.pft.addressbook.model.Groups;
+
 public class ContactCreationTest extends TestBase{
 
   @DataProvider
@@ -61,14 +64,16 @@ public class ContactCreationTest extends TestBase{
 
   @Test(dataProvider = "validContactFromJson")
   public void testNewContactCreation(ContactData contact) throws Exception {
+    Groups groups = app.db().groups();
     //Contacts before = app.contact().all();
     Contacts before = app.db().contacts();
-    app.contact().create(contact, true);
+    app.contact().create(contact.inGroup(groups.iterator().next()), true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.db().contacts();
     //Contacts after = app.contact().all();
     assertThat(after, equalTo(
             before.withAdded(contact.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+    verifyContactListInUI();
   }
 
 
@@ -87,7 +92,8 @@ public class ContactCreationTest extends TestBase{
             withWork("12345").
             withPhoto(photo).
             withEmail("nikita.balashov@nordigy.ru").
-            withGroup("Test1");
+            //withGroup("Test1");
+            inGroup(new GroupData().withName("test1"));
     app.contact().create(contact, true);
     assertThat(app.contact().count(), equalTo(before.size() + 1));
     Contacts after = app.contact().all();

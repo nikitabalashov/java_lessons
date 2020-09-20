@@ -1,7 +1,7 @@
 package ru.stqa.pft.addressbook.tests;
 
 import java.util.List;
-
+import ru.stqa.pft.addressbook.model.GroupData;
 import org.hamcrest.CoreMatchers;
 import org.testng.annotations.*;
 import ru.stqa.pft.addressbook.model.ContactData;
@@ -15,8 +15,15 @@ import static org.testng.Assert.assertEquals;
 public class ContactDeletionTests extends TestBase {
   @BeforeMethod
   public void ensurePrecondition() {
+    if(app.db().groups().size() == 0){
+      app.goTo().GroupPage();
+      app.group().create(new GroupData().withName("test1"));
+      app.goTo().homePage();
+    }
     ContactData contact = new ContactData().withFirstname("Nikita").withLastname("Balashov").withNickname("Beliash").withCompany("Dins").
-            withAddress("Vitebsk").withMobile("555-5555").withWork("12345").withEmail("nikita.balashov@nordigy.ru").withGroup("testio1");
+            withAddress("Vitebsk").withMobile("555-5555").withWork("12345").withEmail("nikita.balashov@nordigy.ru")
+            .inGroup(new GroupData().withName("test1"));
+            //.withGroup("testio1");
     //if (! app.contact().isThereAContact()){
     if (app.db().contacts().size() == 0) {
       app.contact().create(contact, true);
@@ -50,7 +57,7 @@ public class ContactDeletionTests extends TestBase {
     before.remove(before.size() - 1);
     Assert.assertEquals(before, after);
 
- */
+ */verifyContactListInUI();
   }
 }
 

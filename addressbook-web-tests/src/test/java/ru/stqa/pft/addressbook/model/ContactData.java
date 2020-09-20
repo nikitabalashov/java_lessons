@@ -6,6 +6,14 @@ import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import java.util.HashSet;
+import java.util.Objects;
+import java.util.Set;
+
 @XStreamAlias("contact")
 public class ContactData {
   @XStreamOmitField
@@ -28,6 +36,7 @@ public class ContactData {
   private String work;
   @Expose
   private String group;
+
   private String allPhones;
 
   private String email2;
@@ -35,31 +44,16 @@ public class ContactData {
   private String email3;
   private String allEmails;
   private File photo;
-/*
-  public ContactData(String firstname, String lastname, String nickname, String company, String address, String mobile, String email, String group) {
-    this.id = Integer.MAX_VALUE;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.nickname = nickname;
-    this.company = company;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
+
+  //    @Expose
+  @ManyToMany(fetch = FetchType.EAGER)
+  @JoinTable(name = "address_in_groups",
+          joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name="group_id"))
+  private Set<GroupData> groups = new HashSet<GroupData>();
+
+  public Groups getGroups() {
+    return new Groups(groups);
   }
-
-  public ContactData(int id, String firstname, String lastname, String nickname, String company, String address, String mobile, String email, String group) {
-    this.id = id;
-    this.firstname = firstname;
-    this.lastname = lastname;
-    this.nickname = nickname;
-    this.company = company;
-    this.address = address;
-    this.mobile = mobile;
-    this.email = email;
-    this.group = group;
-  }*/
-
 
   @Override
   public boolean equals(Object o) {
@@ -83,7 +77,14 @@ public class ContactData {
             ", firstname='" + firstname + '\'' +
        //     "firstname='" + firstname + '\'' +
             ", lastname='" + lastname + '\'' +
+            ", groups=" + groups +
             '}';
+  }
+
+
+  public ContactData inGroup(GroupData group) {
+    groups.add(group);
+    return this;
   }
 
   public String getAllPhones() {
@@ -190,10 +191,10 @@ public class ContactData {
     return this;
   }
 
-  public ContactData withGroup(String group) {
-    this.group = group;
-    return this;
-  }
+ // public ContactData withGroup(String group) {
+ //  this.group = group;
+ //   return this;
+ // }
 
   public ContactData withId(int id) {
     this.id = id;
