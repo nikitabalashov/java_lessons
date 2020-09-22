@@ -22,10 +22,32 @@ public class ApplicationManager {
   private String browser;
   private FtpHelper ftp;
   private MailHelper mailHelper;
+  private JamesHelper jamesHelper;
+  private WorkWithUserHelper workWithUserHelper;
+  private DbHelper dpHelper;
 
   public ApplicationManager(String browser) {
     this.browser = browser;
     properties = new Properties();
+  }
+
+  public JamesHelper james () {
+    if(jamesHelper == null){
+      jamesHelper = new JamesHelper(this);
+    }
+    return jamesHelper;
+  }
+
+  public WorkWithUserHelper workWithUser() {
+    if(workWithUserHelper ==null){
+      workWithUserHelper =new WorkWithUserHelper(this);
+    }
+    return workWithUserHelper;
+  }
+
+  public DbHelper db() {
+    dpHelper = new DbHelper();
+    return dpHelper;
   }
 
   public void init() throws IOException {

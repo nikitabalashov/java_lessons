@@ -9,26 +9,29 @@ import static org.testng.Assert.assertTrue;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.util.List;
+import javax.mail.MessagingException;
 
 public class RegistrationTests extends TestBase {
 
-  @BeforeMethod
-  public void startMailServer() {
-    app.mail().start();
-  }
+//  @BeforeMethod
+//  public void startMailServer() {
+//    app.mail().start();
+//  }
 
 
   @Test
   //public void testRegistration() {
   //  app.registration().start("user", "user1@localhost.localadmin");
-  public void testRegistration() throws InterruptedException, IOException {
+  public void testRegistration() throws InterruptedException, IOException, MessagingException {
     long now = System.currentTimeMillis();
     String email = String.format("user%s@localhost.localdomain",now);
-    String user =  String.format("iser%s",now);
+    String user =  String.format("user%s",now);
     String password = "password";
+    app.james().createUser(user, password);
     app.registration().start(user, email);
-    List<MailMessage> mailMessages = app.mail().waitForMail(2, 100000);
-    String confirmationLink = findConfirmationLink(mailMessages, email);
+    //List<MailMessage> mailMessages = app.mail().waitForMail(2, 100000);
+    List<MailMessage> mailMessages = app.james().waitForMail(user, password, 60000);
+    String confirmationLink = app.mail().findConfirmationLink(mailMessages, email);
     app.registration().finish(confirmationLink, password, user);
     assertTrue(app.newSession().login(user, password));
 
@@ -36,14 +39,14 @@ public class RegistrationTests extends TestBase {
 
 
 
-  private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
-    MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
-    VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
-    return regex.getText(mailMessage.text);
-  }
+ // private String findConfirmationLink(List<MailMessage> mailMessages, String email) {
+ //   MailMessage mailMessage = mailMessages.stream().filter((m) -> m.to.equals(email)).findFirst().get();
+ //   VerbalExpression regex = VerbalExpression.regex().find("http://").nonSpace().oneOrMore().build();
+ //   return regex.getText(mailMessage.text);
+ // }
 
-  @AfterMethod(alwaysRun = true)
-  public void stopMailServer() {
-    app.mail().stop();
-  }
+//  @AfterMethod(alwaysRun = true)
+//  public void stopMailServer() {
+//    app.mail().stop();
+//  }
 }
