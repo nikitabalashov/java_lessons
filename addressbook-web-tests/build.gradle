@@ -27,9 +27,9 @@ dependencies {
 //}
 
 task testGroups(type: Test) {
-    useTestNG{
-        suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/testng-groups.xml'
-    }
+ //   useTestNG{
+ //       suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/testng-groups.xml'
+ //   }
     if (project.hasProperty('browser')) {
         systemProperties 'browser', "${browser}"
     }
