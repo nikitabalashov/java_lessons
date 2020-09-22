@@ -1,10 +1,7 @@
 apply plugin: 'java'
-
-
 repositories {
     mavenCentral()
 }
-
 dependencies {
     compile 'org.testng:testng:6.9.10'
     compile 'org.seleniumhq.selenium:selenium-java:2.41.0'
@@ -15,19 +12,17 @@ dependencies {
     compile 'mysql:mysql-connector-java:5.1.38'
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
     compile "javax.activation:activation:1.1.1"
-    compile "com.sun.mail:javax.mail:1.6.2"
-    compile "ru.lanwen.verbalregex:java-verbal-expressions:1.6"
     compile "javax.xml.bind:jaxb-api:2.2.11"
     compile "com.sun.xml.bind:jaxb-core:2.2.11"
+    compile "com.sun.xml.bind:jaxb-impl:2.2.11"
+    compile "com.sun.mail:javax.mail:1.6.2"
+    compile "ru.lanwen.verbalregex:java-verbal-expressions:1.6"
     compile "biz.futureware.mantis:mantis-axis-soap-client:1.2.19"
 }
 
-//task testGroups(type: Test){
 test {
- //     useTestNG{
- //          suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/vers/src/test/resources/testng.xml'
- //      }
-if (project.hasProperty('browser')) {
+
+    if (project.hasProperty('browser')) {
         systemProperties 'browser', "${browser}"
     }
     if (project.hasProperty('target')) {
@@ -37,6 +32,3 @@ if (project.hasProperty('browser')) {
         systemProperties 'verifyUI', "${verifyUI}"
     }
 }
-
-
-
