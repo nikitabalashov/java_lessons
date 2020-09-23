@@ -3,7 +3,6 @@ apply plugin: 'java'
 repositories {
     mavenCentral()
 }
-
 dependencies {
     compile 'org.testng:testng:6.9.10'
     compile 'com.google.code.gson:gson:2.6.1'
@@ -13,8 +12,5 @@ dependencies {
     compile "javax.activation:activation:1.1.1"
     compile "javax.xml.bind:jaxb-api:2.2.11"
     compile "com.sun.xml.bind:jaxb-core:2.2.11"
-    compile "com.sun.xml.bind:jaxb-impl:2.2.11"
     compile "com.sun.mail:javax.mail:1.6.2"
 }
-
-
