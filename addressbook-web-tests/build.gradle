@@ -22,6 +22,11 @@ dependencies {
 //    compile "javax.activation:activation:1.1.1"
 }
 
+
+
+test {
+    useTestNG()
+}
 /*
 task testGroups(type: Test) {
     useTestNG{
