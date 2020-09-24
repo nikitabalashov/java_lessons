@@ -24,14 +24,11 @@ dependencies {
 
 
 
-test {
-    useTestNG()
-}
-/*
+
 task testGroups(type: Test) {
     useTestNG{
-      // suites '/src/test/resources/testng-groups.xml'
-        suites 'C:\\Users\\nikita.balashov\\Documents\\GitHub\\java_lessons\\addressbook-web-tests\\src\\test\\resources\\testng-groups.xml'
+      suites 'src/test/resources/testng-groups.xml'
+     //   suites 'src\\test\\resources\\testng-groups.xml'
     }
     if (project.hasProperty('browser')) {
         systemProperties 'browser', "${browser}"
@@ -58,4 +55,4 @@ task testUsers(type: Test) {
     }
 }
 
-*/
+
