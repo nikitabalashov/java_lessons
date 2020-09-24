@@ -16,10 +16,10 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.1.5'
     compile 'mysql:mysql-connector-java:5.1.38'
     compile 'org.hibernate:hibernate-core:5.1.0.Final'
-    compile "javax.xml.bind:jaxb-api:2.2.11"
-    compile "com.sun.xml.bind:jaxb-core:2.2.11"
-    compile "com.sun.xml.bind:jaxb-impl:2.2.11"
-    compile "javax.activation:activation:1.1.1"
+//    compile "javax.xml.bind:jaxb-api:2.2.11"
+//    compile "com.sun.xml.bind:jaxb-core:2.2.11"
+//    compile "com.sun.xml.bind:jaxb-impl:2.2.11"
+//    compile "javax.activation:activation:1.1.1"
 }
 
 //test {
@@ -27,9 +27,9 @@ dependencies {
 //}
 
 task testGroups(type: Test) {
- //   useTestNG{
- //       suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/testng-groups.xml'
- //   }
+    useTestNG{
+        suites '/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/resources/testng-groups.xml'
+    }
     if (project.hasProperty('browser')) {
         systemProperties 'browser', "${browser}"
     }

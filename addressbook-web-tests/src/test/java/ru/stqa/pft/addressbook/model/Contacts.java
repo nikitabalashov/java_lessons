@@ -13,8 +13,8 @@ public class Contacts extends ForwardingSet<ContactData> {
 
   private Set<ContactData> delegate;
 
-  public Contacts (Contacts users) {
-    this.delegate = new HashSet<ContactData>(users.delegate);
+  public Contacts (Contacts contacts) {
+    this.delegate = new HashSet<ContactData>(contacts.delegate);
   }
 
   public Contacts() {

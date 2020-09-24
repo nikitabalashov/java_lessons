@@ -7,7 +7,6 @@ package ru.stqa.pft.addressbook.tests;
         import ru.stqa.pft.addressbook.model.Groups;
         import ru.stqa.pft.addressbook.model.ContactData;
         import ru.stqa.pft.addressbook.model.Contacts;
-
         import static org.hamcrest.CoreMatchers.equalTo;
         import static org.hamcrest.MatcherAssert.assertThat;
 
@@ -26,7 +25,7 @@ public class AddContactToGroupTest extends TestBase {
             .withWork("12345").inGroup(new GroupData().withName("testio1"));
     if (app.db().groups().size() == 0) {
       app.goTo().GroupPage();
-      app.group().create(new GroupData().withName("test1"));
+      app.group().create(new GroupData().withName("testio1"));
       app.goTo().homePage();
     }
     if (app.db().contacts().size() == 0) {

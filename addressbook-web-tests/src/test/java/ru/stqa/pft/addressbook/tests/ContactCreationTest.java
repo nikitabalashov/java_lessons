@@ -41,7 +41,7 @@ public class ContactCreationTest extends TestBase{
 
   @DataProvider
   public Iterator<Object[]> validContactFromJson() throws IOException {
-    BufferedReader reader = new BufferedReader(new FileReader(new File("/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/contacts.json")));
+    BufferedReader reader = new BufferedReader(new FileReader(new File("C:\\Users\\nikita.balashov\\Documents\\GitHub\\java_lessons\\addressbook-web-tests\\src\\test\\resources\\contacts.json")));
     String json = "";
     String line = reader.readLine();
     while (line != null) {

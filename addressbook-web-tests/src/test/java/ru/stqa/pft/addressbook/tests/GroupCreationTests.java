@@ -43,13 +43,13 @@ public class GroupCreationTests extends TestBase {
       List<GroupData> groups = (List<GroupData>) xstream.fromXML(xml);
 
       return groups.stream().map((g) -> new Object[]{g}).collect(Collectors.toList()).iterator();
-    }//return list.iterator();
+    }
   }
 
 
   @DataProvider
   public Iterator<Object[]> validGroupFromJson() throws IOException {
-    try (BufferedReader reader = new BufferedReader(new FileReader(new File("/Users/nikita.balashov/Documents/GitHub/java_lessons/addressbook-web-tests/src/test/java/ru/stqa/pft/addressbook/resources/groups.json")))) {
+    try (BufferedReader reader = new BufferedReader(new FileReader(new File("C:\\Users\\nikita.balashov\\Documents\\GitHub\\java_lessons\\addressbook-web-tests\\src\\test\\resources\\groups.json")))) {
       String json = "";
       String line = reader.readLine();
       while (line != null) {
@@ -69,14 +69,11 @@ public class GroupCreationTests extends TestBase {
   public void testGroupCreation(GroupData group) throws Exception {
     app.goTo().GroupPage();
     Groups before = app.db().groups();
-  //  Groups before = app.group().all();
-    //GroupData groupData = new GroupData().withName("test2");
     app.group().create(group);
     Groups after = app.db().groups();
-   // Groups after = app.group().all();
     assertThat(app.group().count(), equalTo(before.size() + 1));
     assertThat(after, equalTo(
-            before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
+           before.withAdded(group.withId(after.stream().mapToInt((g) -> g.getId()).max().getAsInt()))));
   }
 
   @Test
