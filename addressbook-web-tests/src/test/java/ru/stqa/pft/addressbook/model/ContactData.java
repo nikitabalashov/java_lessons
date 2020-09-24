@@ -17,6 +17,8 @@ public class ContactData {
   private String email2;
   private String email3;
   private String allEmails;
+  private String home;
+  //
 /*
   public ContactData(String firstname, String lastname, String nickname, String company, String address, String mobile, String email, String group) {
     this.id = Integer.MAX_VALUE;
@@ -128,9 +130,14 @@ public class ContactData {
     return allEmails;
   }
 
+  public String getHome() {
+    return home;
+  }
 
-
-
+  public ContactData withHome(String home) {
+    this.home = home;
+    return this;
+  }
 
 
 
